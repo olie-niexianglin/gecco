@@ -3,25 +3,22 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.geccocrawler</groupId>
 	<artifactId>gecco</artifactId>
-	<version>1.3.1</version>
+	<version>1.3.21</version>
 
 	<name>Gecco</name>
 	<description>Easy to use lightweight web crawler</description>
 	<url>https://github.com/xtuhcy/gecco</url>
 
-
-
-
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.5.3</version>
+			<version>4.5.12</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-			<version>1.10.3</version>
+			<version>1.13.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.reflections</groupId>
@@ -31,7 +28,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.38</version>
+			<version>1.2.72</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -41,17 +38,17 @@
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
-			<version>3.2.5</version>
+			<version>3.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.6</version>
+			<version>3.8.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>
-			<version>1.7.7.2</version>
+			<version>1.7.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.weakref</groupId>
@@ -61,16 +58,12 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>23.0</version>
+			<version>27.0.1-jre</version>
 		</dependency>
 	</dependencies>
-
-
-
 	<build>
 		<pluginManagement>
 			<plugins>
-				<!-- 告诉 Maven 使用哪个 JDK 版本是用来编译项目 -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -84,9 +77,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<configuration>
-						<!--<source>1.8</source>-->
-						<!--<target>1.8</target>-->
-						<!--<encoding>UTF-8</encoding>-->
 						<skip>true</skip>
 					</configuration>
 				</plugin>
@@ -112,19 +102,12 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
-
-
 	<scm>
 		<connection>scm:git:https://github.com/xtuhcy/gecco.git</connection>
 		<developerConnection>scm:git:https://github.com/xtuhcy/gecco.git</developerConnection>
 		<url>https://github.com/xtuhcy/gecco</url>
 		<tag>v1.0.6</tag>
 	</scm>
-
-
-
-
 	<developers>
 		<developer>
 			<name>xtuhcy</name>
@@ -133,9 +116,6 @@
 			<organizationUrl>http://www.geccocrawler.com</organizationUrl>
 		</developer>
 	</developers>
-
-
-
 	<licenses>
 		<license>
 			<name>The MIT License (MIT)</name>
@@ -207,9 +187,6 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<configuration>
-							<!--<encoding>UTF-8</encoding>-->
-						</configuration>
 						<executions>
 							<execution>
 								<id>attach-sources</id>
@@ -238,6 +215,4 @@
 			</build>
 		</profile>
 	</profiles>
-
-
 </project>

@@ -76,10 +76,14 @@ public class GeccoEngine<V> extends Thread implements Callable<V> {
 	private boolean mobile;
 
 	private boolean debug;
+	
+	private boolean monitor = true;
 
 	private int retry;
 
 	private EventListener eventListener;
+	
+	private String jmxPrefix;
 
 	private V ret;//callable 返回值
 
@@ -120,25 +124,52 @@ public class GeccoEngine<V> extends Thread implements Callable<V> {
 		return ge;
 	}
 
+	@Deprecated
 	public GeccoEngine start(String url) {
-		return start(new HttpGetRequest(url));
+		return seed(new HttpGetRequest(url));
 	}
 
+	@Deprecated
 	public GeccoEngine start(String... urls) {
 		for (String url : urls) {
-			start(url);
+			seed(url);
 		}
 		return this;
 	}
 
+	@Deprecated
 	public GeccoEngine start(HttpRequest request) {
 		this.startRequests.add(request);
 		return this;
 	}
 
+	@Deprecated
 	public GeccoEngine start(List<HttpRequest> requests) {
 		for (HttpRequest request : requests) {
-			start(request);
+			seed(request);
+		}
+		return this;
+	}
+
+	public GeccoEngine seed(String url) {
+		return seed(new HttpGetRequest(url));
+	}
+
+	public GeccoEngine seed(String... urls) {
+		for (String url : urls) {
+			seed(url);
+		}
+		return this;
+	}
+
+	public GeccoEngine seed(HttpRequest request) {
+		this.startRequests.add(request);
+		return this;
+	}
+
+	public GeccoEngine seed(List<HttpRequest> requests) {
+		for (HttpRequest request : requests) {
+			seed(request);
 		}
 		return this;
 	}
@@ -187,9 +218,19 @@ public class GeccoEngine<V> extends Thread implements Callable<V> {
 		this.debug = debug;
 		return this;
 	}
+	
+	public GeccoEngine monitor(boolean monitor) {
+		this.monitor = monitor;
+		return this;
+	}
 
 	public GeccoEngine classpath(String classpath) {
 		this.classpath = classpath;
+		return this;
+	}
+	
+	public GeccoEngine jmxPrefix(String jmxPrefix) {
+		this.jmxPrefix = jmxPrefix;
 		return this;
 	}
 
@@ -258,10 +299,12 @@ public class GeccoEngine<V> extends Thread implements Callable<V> {
 			thread.start();
 		}
 		startTime = new Date();
-		// 监控爬虫基本信息
-		GeccoMonitor.monitor(this);
-		// 启动导出jmx信息
-		GeccoJmx.export(classpath);
+		if(monitor) {
+			// 监控爬虫基本信息
+			GeccoMonitor.monitor(this);
+			// 启动导出jmx信息
+			GeccoJmx.export(jmxPrefix == null ? classpath : jmxPrefix);
+		}
 		// 非循环模式等待线程执行完毕后关闭
 		closeUnitlComplete();
 	}
@@ -343,6 +386,10 @@ public class GeccoEngine<V> extends Thread implements Callable<V> {
 	
 	public boolean isProxy() {
 		return proxy;
+	}
+	
+	public boolean isMonitor() {
+		return monitor;
 	}
 
 	/**

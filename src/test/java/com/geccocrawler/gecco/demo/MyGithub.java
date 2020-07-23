@@ -25,22 +25,22 @@ public class MyGithub implements HtmlBean {
 	private String project;
 	
 	@Text(own=false)
-	@HtmlField(cssPath=".repository-meta-content")
+	@HtmlField(cssPath="#repo-meta-edit span.text-gray-dark.mr-2")
 	private String title;
 	
 	@Text(own=false)
 	@HtmlField(cssPath=".pagehead-actions li:nth-child(2) .social-count")
-	private int star;
-	
+	private String star;
+
 	@Text
 	@HtmlField(cssPath=".pagehead-actions li:nth-child(3) .social-count")
 	private int fork;
 
-	@Href(click=true)
+	@Href
 	@HtmlField(cssPath="ul.numbers-summary > li:nth-child(4) > a")
 	private String contributors;
 	
-	@HtmlField(cssPath=".entry-content")
+	//@HtmlField(cssPath=".entry-content")
 	private String readme;
 
 	public HttpRequest getRequest() {
@@ -83,11 +83,11 @@ public class MyGithub implements HtmlBean {
 		this.title = title;
 	}
 
-	public int getStar() {
+	public String getStar() {
 		return star;
 	}
 
-	public void setStar(int star) {
+	public void setStar(String star) {
 		this.star = star;
 	}
 
@@ -111,14 +111,14 @@ public class MyGithub implements HtmlBean {
 		GeccoEngine.create()
 		.classpath("com.geccocrawler.gecco.demo")
 		//开始抓取的页面地址
-		.start("https://github.com/xtuhcy/gecco")
-//		.start("https://github.com/xtuhcy/gecco-spring")
-		//开启几个爬虫线程,线程数量最好不要大于start request数量
-		.thread(1)
+		.seed("https://github.com/xtuhcy/gecco")
+		.seed("https://github.com/xtuhcy/gecco-spring")
+		//开启几个爬虫线程,线程数量最好不要大于seed request数量
+		.thread(2)
 		//单个爬虫每次抓取完一个请求后的间隔时间
 		.interval(2000)
 		//循环抓取
-		.loop(false)
+		.loop(true)
 		//采用pc端userAgent
 		.mobile(false)
 		//是否开启debug模式，跟踪页面元素抽取
